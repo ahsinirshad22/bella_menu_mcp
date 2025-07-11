@@ -126,7 +126,10 @@ export class McpMenu implements INodeType {
             if (operation === 'get') {
                 const options = {
                     method: 'GET' as IHttpRequestMethods,
-                    url: `http://localhost:8000/api/menusMcp/${menuId}`,
+                    url: `${process.env.MCP_MENU_API_URL || 'http://localhost:8000'}/api/menusMcp/${menuId}`,
+                    headers: {
+                        'secret_key': process.env.MCP_MENU_API_SECRET_KEY,
+                    },
                     json: true,
                 };
                 const responseData = await this.helpers.request(options);
@@ -152,7 +155,10 @@ export class McpMenu implements INodeType {
 
                 const options = {
                     method: 'POST' as IHttpRequestMethods,
-                    url: `http://localhost:8000/api/menusMcp/${menuId}`,
+                    url: `${process.env.MCP_MENU_API_URL || 'http://localhost:8000'}/api/menusMcp/${menuId}`,
+                    headers: {
+                        'secret_key': process.env.MCP_MENU_API_SECRET_KEY,
+                    },
                     body,
                     json: true,
                 };
